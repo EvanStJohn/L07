@@ -3,9 +3,7 @@
 
 using namespace std;
 
-class StarWars {
 
-};
 
 class Moon {
 private:
@@ -23,6 +21,13 @@ class World{
 
 };
 
+class StarWars {
+private:
+    World world;
+public:
+    void API();
+};
+
 void Moon::API()
 {
     vector<data_tower> tower, *towerPointer;
@@ -36,6 +41,7 @@ void Moon::input(vector<data_tower> *tower)
     int input;
     cout << "what is the total of antennas" << endl;
     cin >> input;
+   // tower->totalAntennas = input;
 
 
 }
