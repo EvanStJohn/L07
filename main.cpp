@@ -6,47 +6,67 @@ using namespace std;
 
 
 class Moon {
-private:
+public:
     struct data_tower {
         int totalAntennas;
-        float sendingSignal;
+        float *sendingSignal;
         string message;
     };
-public:
-    void input(vector<data_tower> *tower);
-    void API();
+    void input(data_tower *tower);
+    data_tower API();
 };
 
 class World{
-
+public:
+    void simulate(Moon::data_tower tower);
 };
 
 class StarWars {
-private:
-    World world;
 public:
-    void API();
+    StarWars()
+    {
+        World world;
+        Moon moon;
+
+        world.simulate(moon.API());
+    }
 };
 
-void Moon::API()
+Moon::data_tower Moon::API()
 {
-    vector<data_tower> tower, *towerPointer;
+    data_tower tower, *towerPointer;
     towerPointer = &tower;
 
     input(towerPointer);
+
+    return tower;
 }
 
-void Moon::input(vector<data_tower> *tower)
+void Moon::input(data_tower *tower)
 {
-    int input;
     cout << "what is the total of antennas" << endl;
-    cin >> input;
-   // tower->totalAntennas = input;
+    cin >> tower->totalAntennas;
+    tower->sendingSignal = new float[tower->totalAntennas];
+}
 
+void World::simulate(Moon::data_tower tower)
+{
+    tower.message = ": Darth Vader is Great";
 
+    for (int i = 0; i < 24; i++)
+    {
+        cout << "Hour " << i + 1 << endl;
+
+        for (int j = 0; j < tower.totalAntennas; j++)
+        {
+            cout << "Antenna " << j + 1 << tower.message << endl;
+        }
+
+        cout << endl;
+    }
 }
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    StarWars starWars;
     return 0;
 }
